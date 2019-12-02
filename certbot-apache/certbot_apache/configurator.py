@@ -909,6 +909,7 @@ class ApacheConfigurator(common.Installer):
             for v2_vh in v2_vhosts:
                 if assertions.isEqualVirtualHost(v1_vh, v2_vh):
                     found = True
+                    break
             if not found:
                 raise AssertionError("Equivalent for {} was not found".format(v1_vh.path))
 
@@ -1002,6 +1003,7 @@ class ApacheConfigurator(common.Installer):
             for directive in sslengine:
                 if directive.parameters[0].lower() == "on":
                     is_ssl = True
+                    break
 
         # "SSLEngine on" might be set outside of <VirtualHost>
         # Treat vhosts with port 443 as ssl vhosts

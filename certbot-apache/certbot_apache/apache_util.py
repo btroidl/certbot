@@ -120,7 +120,4 @@ def included_in_paths(filepath, paths):
     :rtype: bool
     """
 
-    for path in paths:
-        if fnmatch.fnmatch(filepath, path):
-            return True
-    return False
+    return any([fnmatch.fnmatch(filepath, path) for path in paths])

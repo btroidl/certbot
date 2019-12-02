@@ -841,11 +841,7 @@ class ApacheParser(object):
         :returns: True if file is parsed in existing configuration tree
         :rtype: bool
         """
-        paths = []
-        for directory in self.parser_paths:
-            for filename in self.parser_paths[directory]:
-                paths.append(os.path.join(directory, filename))
-
+        paths = self._list_paths_from_dict(self.parser_paths)
         return apache_util.included_in_paths(filep, paths)
 
     def parsed_in_original(self, filep):
@@ -858,11 +854,21 @@ class ApacheParser(object):
         :returns: True if file is parsed in existing configuration tree
         :rtype: bool
         """
-        paths = []
-        for directory in self.existing_paths:
-            for filename in self.existing_paths[directory]:
-                paths.append(os.path.join(directory, filename))
+        paths = self._list_paths_from_dict(self.existing_paths)
         return apache_util.included_in_paths(filep, paths)
+
+    def _list_paths_from_dict(self, pathdict):
+        """
+        Helper function for parsed_in_* methods. Appends the filename
+        segments from dictionary valuse to the directory names fro
+        dictionary keys and returns a list of all possible values.
+        """
+
+        paths = []
+        for directory in pathdict:
+            for filename in pathdict[directory]:
+                paths.append(os.path.join(directory, filename))
+        return paths
 
     def _check_path_actions(self, filepath):
         """Determine actions to take with a new augeas path
