@@ -102,6 +102,11 @@ def isPassNodeList(nodelist): # pragma: no cover
 
 def assertEqualSimple(first, second):
     """ Simple assertion """
+
+    if isinstance(first, bool):
+        # Assertion check does not work for bool like enabled
+        # as we have no way to figure out if it should pass or not
+        return
     if not isPass(first) and not isPass(second):
         assert first == second
 
