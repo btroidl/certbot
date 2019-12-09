@@ -101,7 +101,7 @@ class AugeasParserNode(interfaces.ParserNode):
 
     def find_ancestors(self, name):
         """
-        Searches ancestor BlockNodes with a given name.
+        Searches for ancestor BlockNodes with a given name.
 
         :param str name: Name of the BlockNode parent to search for
 
@@ -140,9 +140,6 @@ class AugeasParserNode(interfaces.ParserNode):
 
         name = self._aug_get_name(path)
         metadata = {"augeasparser": self.parser, "augeaspath": path}
-
-        # Because of the dynamic nature, and the fact that we're not populating
-        # the complete ParserNode tree, we use the search parent as ancestor
 
         # Check if the file was included from the root config or initial state
         enabled = self.parser.parsed_in_original(
